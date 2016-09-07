@@ -1,0 +1,37 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    title= content_for?(:html_title) ? "# content_for(:html_title)  | My Blog" : "My Blog"
+    meta content=("#{content_for?(:meta_description) ? content_for(:meta_description) : "My Blog"}") name="description" /
+    link href=buttercms_blog_atom_path rel="alternate" title=("My Blog - Atom") type="application/atom+xml" /
+    link href=buttercms_blog_rss_path rel="alternate" title=("My Blog - RSS") type="application/rss+xml" /
+    /! See https://buttercms.com/docs/#cssstyling
+    link href="http://d2z2rr99bkshyr.cloudfront.net/buttercms-post-defaults.css" rel="stylesheet" /
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    /! Fixed navbar
+    nav.navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          button.navbar-toggle.collapsed aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" type="button"
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          =link_to 'ZK', buttercms_blog_path, :class=>'navbar-brand'
+        #navbar.navbar-collapse.collapse
+          ul.nav.navbar-nav
+            li.active= link_to 'Home', buttercms_blog_path
+            li
+              a href="#about"  About
+            li
+              a href="#contact"  Contact
+          ul.nav.navbar-nav.navbar-right
+            li
+              a href="../navbar/"  Default
+        /! /.nav-collapse
+    .container
+      = yield
